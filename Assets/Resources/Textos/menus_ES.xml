@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<allm>
+	<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<menu>
+			<texto>Jugar</texto>
+		</menu>
+		<menu>
+			<texto>Taberna</texto>
+		</menu>
+		<menu>
+			<texto>Ayuntamiento</texto>
+		</menu>
+		<menu>
+			<texto>Bienvenido</texto>
+		</menu>
+	</menus>
+</allm>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<allq>
+<preguntas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<pregunta>
+		<texto>¿Cuánto es 15x30?</texto>
+		<v>450</v>
+		<f1>270</f1>
+		<f2>520</f2>
+		<f3>400</f3>
+	</pregunta>
+	<pregunta>
+		<texto>¿Cuánto grados mide el ángulo de un triángulo rectángulo?</texto>
+		<v>90</v>
+		<f1>45</f1>
+		<f2>270</f2>
+		<f3>180</f3>
+	</pregunta>
+	<pregunta>
+		<texto>¿Cuánto es 20 elevado a 0?</texto>
+		<v>1</v>
+		<f1>0</f1>
+		<f2>20</f2>
+		<f3>10</f3>
+	</pregunta>
+	<pregunta>
+		<texto>En la ecuación 150 = x + 100 ¿Cuánto vale x?</texto>
+		<v>50</v>
+		<f1>100</f1>
+		<f2>75</f2>
+		<f3>150</f3>
+	</pregunta>
+</preguntas>
+  </allq>
