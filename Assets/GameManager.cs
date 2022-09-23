@@ -15,12 +15,16 @@ public class GameManager : MonoBehaviour
 
     private Preguntas preguntas;
     private Menus menus;
+    private Items items;
 
-    
+    public int[,] inventariosPersonajes;
+    public List<int> inventarioJugador = new List<int>();
 
 
     void Start()
     {
+        inventariosPersonajes = new int[8, 8];
+
         Iniciar();
 
         int r = Random.Range(0, preguntas.lista.Count);
@@ -65,6 +69,7 @@ public class GameManager : MonoBehaviour
 
         preguntas = Preguntas.Load(idioma);
         menus = Menus.Load(idioma);
+        items = Items.Load();
     }
 
     bool CheckSave()
@@ -114,6 +119,23 @@ public class GameManager : MonoBehaviour
 
         //Aca copia desde el save al GameManager
     }
+
+    public void VerStats(Player p)
+    {
+        //Va recorriendo estadistica por estadistica y le va sumando todos los valores correspondientes de cada item del inventario. Si el item no da un plus en esa estadistica le va a sumar un 0.
+
+        for (int i = 0; i < p.inventario.Length; i++)
+        {
+            p.salud += int.Parse(items.lista[p.inventario[i]].salud);
+            p.daño += int.Parse(items.lista[p.inventario[i]].daño);
+            p.magia += int.Parse(items.lista[p.inventario[i]].magia);
+            p.prob_Bloquear += int.Parse(items.lista[p.inventario[i]].p_bloqueo);
+            p.prob_Evadir += int.Parse(items.lista[p.inventario[i]].p_evadir);
+            p.prob_Critico += int.Parse(items.lista[p.inventario[i]].p_critico);
+            p.dam_Critico += int.Parse(items.lista[p.inventario[i]].d_critico);
+        }
+    }
+
 }
 
 public class Pregunta
@@ -171,6 +193,50 @@ public class Menus
         return lista;
     }
 }
+
+
+
+public class TodosLosItems
+{
+    [XmlElement("nombre")]
+    public string nombre;
+    [XmlElement("calidad")]
+    public string calidad;
+    [XmlElement("salud")]
+    public string salud;
+    [XmlElement("daño")]
+    public string daño;
+    [XmlElement("magia")]
+    public string magia;
+    [XmlElement("p_bloqueo")]
+    public string p_bloqueo;
+    [XmlElement("p_evadir")]
+    public string p_evadir;
+    [XmlElement("p_critico")]
+    public string p_critico;
+    [XmlElement("d_critico")]
+    public string d_critico;
+}
+
+[XmlRoot("alli")]
+public class Items
+{
+    [XmlArray("items")]
+    [XmlArrayItem("item")]
+    public List<TodosLosItems> lista;
+
+    public static Items Load()
+    {
+        TextAsset _xml = Resources.Load<TextAsset>("Base De Datos Items");
+        XmlSerializer serializador = new XmlSerializer(typeof(Items));
+        StringReader reader = new StringReader(_xml.text);
+        Items lista = serializador.Deserialize(reader) as Items;
+        reader.Close();
+        return lista;
+    }
+}
+
+
 
 [System.Serializable]
 public class SaveData

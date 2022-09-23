@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<alli>
+	<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<item>
+			<nombre>Espada comun</nombre>
+			<calidad>Común</calidad>
+			<salud>0</salud>
+			<daño>5</daño>
+			<magia>2</magia>
+			<p_bloqueo>2</p_bloqueo>
+			<p_evadir>2</p_evadir>
+			<p_critico>2</p_critico>
+			<dam_critico>2</dam_critico>
+		</item>
+	</items>
+</alli>
