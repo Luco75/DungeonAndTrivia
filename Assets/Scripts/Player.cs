@@ -9,7 +9,8 @@ public class Player : Character
     public int magia;
     public Sprite[] partesDelCuerpo;
     public int[] inventario;
-    private int id;
+    public int[] nivelDeItem;
+    public int id;
 
     private void Start()
     {
@@ -18,7 +19,8 @@ public class Player : Character
         //Carga los items del inventario del personaje
         for (int i = 0; i < inventario.Length; i++)
         {
-            inventario[i] = gm.inventariosPersonajes[id, i];
+            inventario[i] = gm.inventariosPersonajes[id, i, 0];
+            nivelDeItem[i] = gm.inventariosPersonajes[id, i, 1];
         }
 
         //Actualiza las estadisticas en base a los items equipados

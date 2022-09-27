@@ -17,13 +17,19 @@ public class GameManager : MonoBehaviour
     private Menus menus;
     private Items items;
 
-    public int[,] inventariosPersonajes;
+    public int[,,] inventariosPersonajes;
     public List<int> inventarioJugador = new List<int>();
-
+    AnimationCurve curvaDeSalud;
+    AnimationCurve curvaDeDaño;
+    AnimationCurve curvaDeMagia;
+    AnimationCurve curvaDeBloqueo;
+    AnimationCurve curvaDeEvasion;
+    AnimationCurve curvaDeProbCrit;
+    AnimationCurve curvaDeDamCrit;
 
     void Start()
     {
-        inventariosPersonajes = new int[8, 8];
+        inventariosPersonajes = new int[8, 8, 2];
 
         Iniciar();
 
@@ -41,9 +47,29 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void VerStats(Player p)
+    {
+        //Va recorriendo estadistica por estadistica y le va sumando todos los valores correspondientes de cada item del inventario. Si el item no da un plus en esa estadistica le va a sumar un 0.
+
+        for (int i = 0; i < p.inventario.Length; i++)
+        {
+            p.salud += CalcularValor(int.Parse(items.lista[p.inventario[i]].salud), p.nivelDeItem[i], curvaDeSalud);
+            p.daño += CalcularValor(int.Parse(items.lista[p.inventario[i]].daño), p.nivelDeItem[i], curvaDeDaño);
+            p.magia += CalcularValor(int.Parse(items.lista[p.inventario[i]].magia), p.nivelDeItem[i], curvaDeMagia);
+            p.prob_Bloquear += CalcularValor(int.Parse(items.lista[p.inventario[i]].p_bloqueo), p.nivelDeItem[i], curvaDeBloqueo);
+            p.prob_Evadir += CalcularValor(int.Parse(items.lista[p.inventario[i]].p_evadir), p.nivelDeItem[i], curvaDeEvasion);
+            p.prob_Evadir += CalcularValor(int.Parse(items.lista[p.inventario[i]].p_critico), p.nivelDeItem[i], curvaDeProbCrit);
+            p.dam_Critico += CalcularValor(int.Parse(items.lista[p.inventario[i]].d_critico), p.nivelDeItem[i], curvaDeDamCrit);
+        }
+    }
+
+    public int CalcularValor(int valorInicial, int nivel, AnimationCurve curva)
+    {
+        if (valorInicial > 0) return valorInicial + (int)curva.Evaluate(nivel);
+        else return valorInicial;
+    }
 
 
-    
     /*Programar todo lo que NO tenga que ver guardar los datos arriba de esto*/
 
     void Iniciar()
@@ -119,23 +145,6 @@ public class GameManager : MonoBehaviour
 
         //Aca copia desde el save al GameManager
     }
-
-    public void VerStats(Player p)
-    {
-        //Va recorriendo estadistica por estadistica y le va sumando todos los valores correspondientes de cada item del inventario. Si el item no da un plus en esa estadistica le va a sumar un 0.
-
-        for (int i = 0; i < p.inventario.Length; i++)
-        {
-            p.salud += int.Parse(items.lista[p.inventario[i]].salud);
-            p.daño += int.Parse(items.lista[p.inventario[i]].daño);
-            p.magia += int.Parse(items.lista[p.inventario[i]].magia);
-            p.prob_Bloquear += int.Parse(items.lista[p.inventario[i]].p_bloqueo);
-            p.prob_Evadir += int.Parse(items.lista[p.inventario[i]].p_evadir);
-            p.prob_Critico += int.Parse(items.lista[p.inventario[i]].p_critico);
-            p.dam_Critico += int.Parse(items.lista[p.inventario[i]].d_critico);
-        }
-    }
-
 }
 
 public class Pregunta
